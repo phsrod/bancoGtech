@@ -1,4 +1,4 @@
-import bancogtech.validations as validations
+import validations as validations
 
 
 class Pessoa():

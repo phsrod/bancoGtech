@@ -1,4 +1,3 @@
-
 def validar_cpf(cpf: str) -> bool:
     # Remove caracteres não numéricos
     cpf = ''.join(filter(str.isdigit, cpf))
@@ -47,4 +46,11 @@ def validar_estado(estado: str) -> bool:
     if not estado:
         return False
     return estado.strip().upper() in ufs
+
+def validar_senha(senha: str) -> bool:
+    if senha is None or not senha.isdigit() or len(senha) != 6:
+        return False
+    return True
+
+
 
