@@ -1,4 +1,4 @@
-import funcoes
+import bancogtech.validations as validations
 
 
 class Pessoa():
@@ -16,12 +16,8 @@ class Pessoa():
     
     @nome.setter
     def nome(self, nome):
-        if nome is None or nome.strip() == "":
-            raise ValueError("O nome não pode ser vazio.")
-        if not all(palavra.isalpha() for palavra in nome.split()):
-            raise ValueError("O nome deve conter apenas letras e espaços entre as palavras.")
-        if len(nome) <= 1:
-            raise ValueError("O nome deve ter mais de um caractere.")
+        if not validations.validar_nome(nome):
+            raise ValueError("Nome inválido: deve conter apenas letras e espaços, não pode ser vazio e ter mais de um caractere.")
         self._nome = nome
 
     @property
@@ -35,7 +31,7 @@ class Pessoa():
         # Remove caracteres não numéricos
         cpf_limpo = ''.join(filter(str.isdigit, cpf))
         
-        if not funcoes.validar_cpf(cpf_limpo):
+        if not validations.validar_cpf(cpf_limpo):
             raise ValueError("CPF inválido.")
         
         self._cpf = cpf_limpo
@@ -46,10 +42,9 @@ class Pessoa():
     
     @telefone.setter
     def telefone(self, telefone):
-        if telefone.isdigit() and len(telefone) == 11:
-            self._telefone = telefone
-        else:
+        if not validations.validar_telefone(telefone):
             raise ValueError("Telefone deve ser um número de 11 dígitos.")
+        self._telefone = telefone
     
     @property
     def endereco(self):
@@ -57,10 +52,9 @@ class Pessoa():
     
     @endereco.setter
     def endereco(self, endereco):
-        if endereco.strip():
-            self._endereco = endereco
-        else:
+        if not validations.validar_endereco(endereco):
             raise ValueError("O endereço não pode ser vazio.")
+        self._endereco = endereco
     
     @property
     def cidade(self):
@@ -68,10 +62,9 @@ class Pessoa():
     
     @cidade.setter
     def cidade(self, cidade):
-        if cidade.strip():
-            self._cidade = cidade
-        else:
+        if not validations.validar_cidade(cidade):
             raise ValueError("A cidade não pode ser vazia.")
+        self._cidade = cidade
     
     @property
     def estado(self):
@@ -79,15 +72,9 @@ class Pessoa():
     
     @estado.setter
     def estado(self, estado):
-        ufs = {
-        "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
-        "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN",
-        "RS", "RO", "RR", "SC", "SP", "SE", "TO"
-        }
-        if estado.strip().upper() in ufs:
-            self._estado = estado.strip().upper()
-        else:
+        if not validations.validar_estado(estado):
             raise ValueError("Estado inválido. Por favor, insira um estado válido.")
+        self._estado = estado.strip().upper()
     
     def __str__(self):
         return (
