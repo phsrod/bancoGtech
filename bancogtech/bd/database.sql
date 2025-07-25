@@ -12,15 +12,17 @@ CREATE TABLE IF NOT EXISTS `pessoa` (
     endereco VARCHAR(255) NOT NULL,
     cidade VARCHAR(255) NOT NULL,
     estado VARCHAR(2) NOT NULL
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `conta` (
-    numero_conta INT PRIMARY KEY,
+    numero_conta INT AUTO_INCREMENT PRIMARY KEY,
     senha CHAR(6) NOT NULL,
-    saldo DECIMAL(10,2) NOT NULL DEFAULT,
+    saldo DECIMAL(10,2) NOT NULL DEFAULT 0.00,
     cpf_pessoa VARCHAR(11) NOT NULL,
     FOREIGN KEY (cpf_pessoa) REFERENCES pessoa(cpf)
-);
+        ON DELETE NO ACTION
+        ON UPDATE CASCADE 
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `transacao` (
     id_transacao INT AUTO_INCREMENT PRIMARY KEY,
@@ -29,6 +31,10 @@ CREATE TABLE IF NOT EXISTS `transacao` (
     data DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     conta_origem_id INT, 
     conta_destino_id INT,
-    FOREIGN KEY (conta_origem_id) REFERENCES conta(numero_conta),
+    FOREIGN KEY (conta_origem_id) REFERENCES conta(numero_conta)
+        ON DELETE NO ACTION
+        ON UPDATE CASCADE,
     FOREIGN KEY (conta_destino_id) REFERENCES conta(numero_conta)
-);
+        ON DELETE NO ACTION
+        ON UPDATE CASCADE
+) ENGINE=InnoDB;

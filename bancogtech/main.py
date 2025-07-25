@@ -2,6 +2,8 @@ import mysql.connector
 from bd.db_config import db_config
 from mysql.connector import Error
 
+
+#testes de conexão
 def connect_to_database():
     try:
         conn = mysql.connector.connect(**db_config)
