@@ -82,3 +82,12 @@ class Banco():
             print(f"Erro ao criar conta: {e}")
             self.conn.rollback()
             return None
+
+    def autenticar_conta(self, numero_conta: int, senha: str) -> bool:
+        try:
+            consulta = "SELECT numero_conta FROM conta WHERE numero_conta = %s AND senha = %s"
+            resultado = self.executar_query(consulta, (numero_conta, senha))
+            return bool(resultado)  # True se encontrou, False se não
+        except Exception as e:
+            print(f"Erro na autenticação: {e}")
+            return False
