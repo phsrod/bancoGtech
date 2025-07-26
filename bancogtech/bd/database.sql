@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `conta` (
     numero_conta INT AUTO_INCREMENT PRIMARY KEY,
     senha CHAR(6) NOT NULL,
     saldo DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-    cpf_pessoa VARCHAR(11) NOT NULL,
+    cpf_pessoa VARCHAR(11) UNIQUE NOT NULL,
     FOREIGN KEY (cpf_pessoa) REFERENCES pessoa(cpf)
         ON DELETE NO ACTION
         ON UPDATE CASCADE 
