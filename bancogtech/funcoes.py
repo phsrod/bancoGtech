@@ -146,7 +146,7 @@ def autenticar_conta():
                 os.system("cls")
                 if banco.autenticar_conta(numero, senha):
                     print("Autenticação bem-sucedida!\nCarregando...\n")
-                    return True
+                    return numero
                 else:
                     print("Número da conta ou senha incorretos.")
                     return False
