@@ -3,6 +3,7 @@ from bd.db_config import db_config
 from mysql.connector import Error
 from classe.pessoa import Pessoa
 import validations as validations
+import sys
 
 class Banco():
     def __init__(self):
@@ -14,6 +15,10 @@ class Banco():
             print(f"Erro ao conectar ao banco de dados: {e}")
             self.conn = None
             self.cursor = None
+        
+        if not self.conn or not self.cursor:
+            print("Não foi possível conectar ao banco de dados. Encerrando o programa...")
+            sys.exit(1)
 
     
     def fechar_conexao(self):
@@ -21,6 +26,13 @@ class Banco():
             self.cursor.close()
         if self.conn:
             self.conn.close()
+    
+    def existe_cpf(self, cpf):
+        consulta = "SELECT cpf FROM pessoa WHERE cpf = %s"
+        self.cursor.execute(consulta, (cpf,))
+        resultado = self.cursor.fetchone()
+        return bool(resultado)
+
     
     def executar_query(self, query, params=None):
         """

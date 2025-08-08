@@ -52,10 +52,8 @@ def validar_senha(senha: str) -> bool:
         return False
     return True
 
-def existe_cpf(self, cpf):
-    consulta = "SELECT cpf FROM pessoa WHERE cpf = %s"
-    resultado = self.executar_query(consulta, (cpf,))
-    return bool(resultado)
+
+
 
 
 

@@ -3,8 +3,8 @@ from classe.banco import Banco
 import validations
 import os
 
-banco = Banco()
 def cadastrar_nova_conta():
+    banco = Banco()
     
     while True:
         os.system("cls")
@@ -17,7 +17,7 @@ def cadastrar_nova_conta():
                 print("CPF inválido. Tente novamente.")
                 continue
             # Verifica se CPF já existe no banco
-            if validations.existe_cpf(cpf):
+            if banco.existe_cpf(cpf):
                 print("CPF já cadastrado. Não é possível criar nova conta com este CPF.")
                 continue
             break
@@ -108,7 +108,7 @@ def cadastrar_nova_conta():
                 break
 
 def autenticar_conta():
-    # banco = Banco()
+    banco = Banco()
 
     while True:
         os.system("cls")
